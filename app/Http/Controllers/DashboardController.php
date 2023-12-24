@@ -15,15 +15,31 @@ class DashboardController extends Controller
             'title' => 'Pasien Pendaftaran',
         ]);
     }
+
+    public function verifikasi(Request $request)
+    {
+        $validatedData = $request->validate([
+            'file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $file = $request->file('file');
+        $Extension = $file->getClientOriginalExtension();
+        $fileName = Str::random(10) . '_' . time() . '.' . $Extension;
+        $file->move('storage', $fileName);
+        $name = auth()->user()->name;
+        $id = auth()->user()->id;
+
+        return redirect()
+            ->back()
+            ->with('success', 'Akun telah terverifikasi');
+    }
     public function adminHome()
     {
-        return view('v_admin.index', [
-            'title' => 'Pasien Pendaftaran',
-        ]);
+        return view('v_admin.index');
     }
     public function adminRoom()
     {
-        $rooms = Room::all(); 
+        $rooms = Room::all();
 
         return view('v_admin.room', [
             'rooms' => $rooms,
@@ -32,9 +48,7 @@ class DashboardController extends Controller
 
     public function adminCreate()
     {
-        return view('v_admin.create', [
-            'title' => 'Pasien Pendaftaran',
-        ]);
+        return view('v_admin.create');
     }
     public function adminStore(Request $request)
     {
@@ -52,9 +66,10 @@ class DashboardController extends Controller
         ]);
 
         $file = $request->file('file');
-        $fileName = time() . '.' . $file->getClientOriginalExtension();
-        $filePath = $file->storeAs('public', $fileName);
-        $linkPath = asset('storage/' . $fileName);
+        $Extension = $file->getClientOriginalExtension();
+        $fileName = Str::random(10) . '_' . time() . '.' . $Extension;
+        $file->move('storage', $fileName);
+
         $codeQr = Str::random(10);
         DB::table('room')->insert([
             'code_QR' => $codeQr,
@@ -67,7 +82,7 @@ class DashboardController extends Controller
             'peta' => $validatedData['peta'],
             'desc' => $validatedData['desc'],
             'status' => $validatedData['status'],
-            'image' => $linkPath,
+            'image' => $fileName,
             'created_at' => now(),
             'updated_at' => now(),
         ]);

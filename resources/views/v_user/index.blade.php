@@ -83,7 +83,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="container">
-                        <form action="/">
+                        <form method="post" action="/user/verifikasi" enctype="multipart/form-data">
+                            @csrf
                             <fieldset class="upload_dropZone mb-3 p-4 text-center">
                                 <legend class="visually-hidden">Image uploader</legend>
                                 <svg class="upload_svg" width="60" height="60" aria-hidden="true">
@@ -91,7 +92,7 @@
                                 </svg>
                                 <p class="small my-2">Drag &amp; Drop Identitas<br><i>or</i>
                                 </p>
-                                <input id="upload_image_background" data-post-name="image_background"
+                                <input name="file" id="upload_image_background"
                                     data-post-url="https://someplace.com/image/uploads/backgrounds/"
                                     class="position-absolute invisible" type="file" multiple
                                     accept="image/jpeg, image/png, image/svg+xml" />
@@ -112,7 +113,7 @@
                         </svg>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>
