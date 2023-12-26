@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Guest;
 use App\Models\Room;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
