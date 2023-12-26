@@ -1,0 +1,1 @@
+components.primary-button<?php /**PATH C:\Users\Admin\Documents\PROJECT LARAVEL\eklinikadel\storage\framework\views/dd3aad43395cdc08ad581b553e697835.blade.php ENDPATH**/ ?>

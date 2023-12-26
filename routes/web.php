@@ -48,4 +48,4 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
-require _DIR_ . '/auth.php';
+require __DIR__ . '/auth.php';
