@@ -23,7 +23,7 @@ Route::get('/detail/{id}', [LandingController::class, 'detail']);
 Route::get('/room', [LandingController::class, 'room']);
 Route::get('/register', [LandingController::class, 'register']);
 Route::post('/register', [LandingController::class, 'regAuth']);
-Route::get('/login', [LandingController::class, 'login']);
+Route::get('/login', [LandingController::class, 'login'])->name('login');
 Route::post('/login', [LandingController::class, 'authenticate']);
 Route::post('logout', [LandingController::class, 'logout'])->name('logout');
 
@@ -32,10 +32,12 @@ Route::middleware(['auth'])->group(function () {});
 Route::middleware(['auth'])->group(function () {
     Route::middleware([UserMiddleware::class])->group(function () {
         Route::get('/user/home', [DashboardController::class, 'userHome']);
+        Route::post('/checkout/{id}', [LandingController::class, 'checkout']);
         Route::post('/user/verifikasi', [DashboardController::class, 'verifikasi']);
     });
 
     Route::middleware([AdminMiddleware::class])->group(function () {
+        Route::get('/qrcode/{code_QR}', [DashboardController::class, 'scanQr']);
         Route::get('/admin/home', [DashboardController::class, 'adminHome']);
         Route::get('/admin/room', [DashboardController::class, 'adminRoom']);
         Route::get('/admin/room/create', [DashboardController::class, 'adminCreate']);

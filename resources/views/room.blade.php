@@ -20,27 +20,29 @@
 
     <div class="album py-5 bg-light">
         <div class="container">
-          @foreach ($rooms as $room)
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            <div class="col">
-              <div class="card shadow-sm">
-                <figure><img src="{{ asset('storage/' . $room->image) }}" alt="Shoes" /></figure>
-                <div class="card-body">
-                  <p style="font-weight: 700;" class="font-weight-bold">{{ $room->nama_kamar }}</p>
-                  <p class="font-weight-bold">{{ $room->desc }}..</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <small class="text-muted">Rp.{{ $room->harga }}</small>
-                  </div>
-                  <a href="/detail/{{ $room->id }}" class="btn btn-sm btn-outline-secondary">Lihat fasilitas</a>
-                  </div>
-                </div>
-              </div>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                @foreach ($rooms as $room)
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <figure>
+                                <img src="{{ asset('storage/' . $room->image) }}" alt="Room Image" class="img-fluid">
+                            </figure>
+                            <div class="card-body">
+                                <p style="font-weight: 700;" class="font-weight-bold">{{ $room->nama_kamar }}</p>
+                                <p class="font-weight-bold">{{ $room->desc }}..</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <small class="text-muted">Rp.{{ $room->harga }}</small>
+                                    </div>
+                                    <a href="/detail/{{ $room->id }}" class="btn btn-sm btn-outline-secondary">Lihat fasilitas</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
-            @endforeach
-          </div>
         </div>
-      </div>
+    </div>
 
   </main>
 @endsection

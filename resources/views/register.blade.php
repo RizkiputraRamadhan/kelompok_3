@@ -1,8 +1,10 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     @include('templates.partials.head')
 </head>
+
 <body>
     <script src="./dist/js/demo-theme.min.js?1684106062"></script>
     <div class="page">
@@ -20,23 +22,37 @@
                             <p class="col-lg-10 fs-4">Daftar Untuk Memesan penginapan yang anda harapkan dan pilihan yag
                                 tepat adalah kesukaan anda saat ini.</p>
                         </div>
+
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @elseif(session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                         <div class="col-md-10 mx-auto col-lg-5">
                             <form action="/register" method="post" class="p-4 p-md-5 border rounded-3 bg-light">
                                 @csrf
                                 <div class="form-floating mb-3">
-                                    <input name="name" type="text" class="form-control" id="floatingName" placeholder="Your Name">
+                                    <input name="name" type="text" class="form-control" id="floatingName"
+                                        placeholder="Your Name">
                                     <label for="floatingName">Nama</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                    <input name="email" type="email" class="form-control" id="floatingInput"
+                                        placeholder="name@example.com">
                                     <label for="floatingInput">Email address</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                                    <input name="password" type="password" class="form-control" id="floatingPassword"
+                                        placeholder="Password">
                                     <label for="floatingPassword">Password</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input name="password_confirmation" type="password" class="form-control" id="floatingPasswordConfirmation" placeholder="Confirm Password">
+                                    <input name="password_confirmation" type="password" class="form-control"
+                                        id="floatingPasswordConfirmation" placeholder="Confirm Password">
                                     <label for="floatingPasswordConfirmation">Confirm Password</label>
                                 </div>
                                 <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>

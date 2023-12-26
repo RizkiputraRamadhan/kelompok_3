@@ -1,8 +1,10 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     @include('templates.partials.head')
 </head>
+
 <body>
     <script src="./dist/js/demo-theme.min.js?1684106062"></script>
     <div class="page">
@@ -22,6 +24,16 @@
                             <p class="col-lg-10 fs-4">Masuk Untuk Memesan penginapan yang anda harapkan dan pilihan yag
                                 tepat adalah kesukaan anda saat ini.</p>
                         </div>
+
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @elseif(session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                         <div class="col-md-10 mx-auto col-lg-5">
                             <form action="/login" method="post" class="p-4 p-md-5 border rounded-3 bg-light">
                                 @csrf

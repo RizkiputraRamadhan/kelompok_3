@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Guest;
 use App\Models\Room;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -11,8 +12,11 @@ class DashboardController extends Controller
 {
     public function userHome()
     {
+        $guest = Guest::where('user_id', auth()->user()->id)->first();
+        $room = Room::where('user_id', auth()->user()->id)->get();
         return view('v_user.index', [
-            'title' => 'Pasien Pendaftaran',
+            'guest' => $guest,
+            'rooms' => $room,
         ]);
     }
 
@@ -29,13 +33,24 @@ class DashboardController extends Controller
         $name = auth()->user()->name;
         $id = auth()->user()->id;
 
+        DB::table('guest')->insert([
+            'nama' => $name,
+            'user_id' => $id,
+            'status' => 1,
+            'ktp' => $fileName,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
         return redirect()
             ->back()
             ->with('success', 'Akun telah terverifikasi');
     }
     public function adminHome()
     {
-        return view('v_admin.index');
+        $rooms = Room::where('status', 2)->get();
+        return view('v_admin.index', [
+            'rooms' => $rooms,
+        ]);
     }
     public function adminRoom()
     {
@@ -148,6 +163,30 @@ class DashboardController extends Controller
             ]);
 
         return redirect('/admin/room')->with('success', 'Room updated successfully.');
+    }
+
+    public function scanQr($code_QR)
+    {
+        $room = Room::where('code_QR', $code_QR)->first();
+
+        if ($room) {
+            if ($room->user_id) {
+                $guest = Guest::where('user_id', $room->user_id)->first();
+                if (!$guest) {
+                    return redirect('/admin/home')->with('error', 'Tamu Belum terverifikasi.');
+                }
+            }
+            if ($room->status == 2) {
+                return redirect('/admin/home')->with('error', 'Room sudah dipesan.');
+            }
+            $room->update([
+                'status' => 2,
+            ]);
+
+            return redirect('/admin/home')->with('success', 'Scan successfully.');
+        }
+
+        return redirect('/admin/home')->with('error', 'Room tidak ditemukan.');
     }
 
     public function destroy($id)

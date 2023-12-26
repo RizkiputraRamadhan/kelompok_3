@@ -6,6 +6,7 @@ use App\Models\Room;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
@@ -15,14 +16,14 @@ class LandingController extends Controller
 {
     public function index()
     {
-        $rooms = Room::where('status', 1)->limit(5)->get();
+        $rooms = Room::where('status', 1)->where('user_id', null)->limit(5)->get();
         return view('welcome', [
             'rooms' => $rooms,
         ]);
     }
     public function room()
     {
-        $rooms = Room::where('status', 1)->get();
+        $rooms = Room::where('status', 1)->where('user_id', null)->get();
         return view('room', [
             'rooms' => $rooms,
         ]);
@@ -30,7 +31,7 @@ class LandingController extends Controller
     public function detail($id)
     {
         $rooms = Room::find($id);
-        $roomsDesc = Room::where('status', 1)->limit(5)->get();
+        $roomsDesc = Room::where('status', 1)->where('user_id', null)->limit(5)->get();
         return view('detail', [
             'rooms' => $rooms,
             'roomsDesc' => $roomsDesc,
@@ -109,5 +110,17 @@ public function logout(Request $request)
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+
+    public function checkout(Request $request, $id)
+    {
+            DB::table('room')
+                ->where('id', $id)
+                ->update([
+                    'user_id' => auth()->user()->id,
+                ]);
+
+            return redirect('/user/home')->with('success', 'Room successfully dipesan.');
     }
 }

@@ -63,14 +63,28 @@
     </style>
     <div class="my-5 px-4 py-5 text-center">
         <img class="d-block mx-auto mb-4" src="{{ asset('storage/logopng.png') }}" alt="" width="72" height="57">
-        <h3 class="bold">Centered hero</h3>
+        <h3 class="bold">{{ auth()->user()->name }}</h3>
         <div class="col-lg-6 mx-auto">
             <div class="d-grid d-sm-flex justify-content-sm-center gap-2">
-                <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                    class="btn btn-outline-danger btn-xs px-4">Unverified</button>
+                @if ($guest)
+                    <button type="button" class="btn btn-success btn-xs px-4">verified</button>
+                @else
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                        class="btn btn-outline-danger btn-xs px-4">Unverified</button>
+                @endif
             </div>
         </div>
     </div>
+
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @elseif(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
 
     <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -100,7 +114,7 @@
                                 <div class="upload_gallery d-flex justify-content-center mb-0 flex-wrap gap-3"></div>
                             </fieldset>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-success" >Verifikasi</button>
+                                <button type="submit" class="btn btn-success">Verifikasi</button>
                             </div>
                         </form>
                         <svg style="display:none">
@@ -129,13 +143,46 @@
                             <th>NO Kamar</th>
                             <th>Nama Kamar</th>
                             <th>Nama Tamu</th>
-                            <th>Status</th>
-                            <th>Dibuat</th>
-                            <th class="w-1"></th>
+                            <th>Harga</th>
+                            <th>Qr Code</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($rooms as $room)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $room->no_kamar }}</td>
+                                <td>{{ $room->nama_kamar }}</td>
+                                <td>{{ $room->user->name }}</td>
+                                <td>{{ $room->harga }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#myModal{{ $room->id }}">
+                                        Code Qr
+                                    </button>
 
+                                    <!-- The Modal -->
+                                    <div class="modal" id="myModal{{ $room->id }}">
+                                        <div class="modal-dialog d-flex justify-content-center align-items-center">
+                                            <div class="modal-content">
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Qr Code </h4>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <!-- Modal body -->
+                                                <div class="modal-body text-center">
+                                                    {!! QrCode::size(200)->generate(url("qrcode/{$room->code_QR}")) !!}
+                                                    <br>
+                                                    <br>
+                                                    <b class="p-1">{{ $room->nama_kamar }}</b>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

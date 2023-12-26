@@ -6,18 +6,23 @@
         </button>
         <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-md-3 pe-0">
             <a href=".">
-                Homesaty Syariah
+                Homestay Syariah
             </a>
         </h1>
         <div class="navbar-nav order-md-last flex-row">
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
                     aria-label="Open user menu">
+                    @if (Auth::check() == '')
+
+                    @else
+
                     <span class="avatar avatar-sm" style="background-image: url(./static/avatars/000m.jpg)"></span>
                     <div class="d-none d-xl-block ps-2">
                         <div>{{  Auth::user()->name ?? '' }}</div>
                         <div class="small text-muted mt-1">{{ Auth::user()->email ?? '' }}</div>
                     </div>
+                    @endif
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                     <form action="{{ route('logout') }}" method="POST">
