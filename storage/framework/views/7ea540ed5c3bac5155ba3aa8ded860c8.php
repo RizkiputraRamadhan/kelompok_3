@@ -1,8 +1,10 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <?php echo $__env->make('templates.partials.head', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 </head>
+
 <body>
     <script src="./dist/js/demo-theme.min.js?1684106062"></script>
     <div class="page">
@@ -22,6 +24,18 @@
                             <p class="col-lg-10 fs-4">Masuk Untuk Memesan penginapan yang anda harapkan dan pilihan yag
                                 tepat adalah kesukaan anda saat ini.</p>
                         </div>
+
+                        <?php if(session('success')): ?>
+                            <div class="alert alert-success">
+                                <?php echo e(session('success')); ?>
+
+                            </div>
+                        <?php elseif(session('error')): ?>
+                            <div class="alert alert-danger">
+                                <?php echo e(session('error')); ?>
+
+                            </div>
+                        <?php endif; ?>
                         <div class="col-md-10 mx-auto col-lg-5">
                             <form action="/login" method="post" class="p-4 p-md-5 border rounded-3 bg-light">
                                 <?php echo csrf_field(); ?>
@@ -51,5 +65,4 @@
     <?php echo $__env->make('templates.partials.script', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 </body>
 
-</html>
-<?php /**PATH C:\Users\Admin\Documents\PROJECT LARAVEL\HomeStay V2\resources\views/login.blade.php ENDPATH**/ ?>
+</html><?php /**PATH C:\Users\Admin\Documents\PROJECT LARAVEL\HomeStay V2\resources\views/login.blade.php ENDPATH**/ ?>

@@ -18,30 +18,32 @@
     </section>
 
     <div class="album py-5 bg-light">
-      <div class="container">
-        <?php $__currentLoopData = $rooms; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $room): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          <div class="col">
-            <div class="card shadow-sm">
-              <figure><img src="<?php echo e(asset('storage/' . $room->image)); ?>" alt="Shoes" /></figure>
-              <div class="card-body">
-                <p style="font-weight: 700;" class="font-weight-bold"><?php echo e($room->nama_kamar); ?></p>
-                <p class="font-weight-bold"><?php echo e($room->desc); ?>..</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <small class="text-muted">Rp.<?php echo e($room->harga); ?></small>
-                </div>
-                <a href="/detail/<?php echo e($room->id); ?>" class="btn btn-sm btn-outline-secondary">Lihat fasilitas</a>
-                </div>
-              </div>
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                <?php $__currentLoopData = $rooms; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $room): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <figure>
+                                <img src="<?php echo e(asset('storage/' . $room->image)); ?>" alt="Room Image" class="img-fluid">
+                            </figure>
+                            <div class="card-body">
+                                <p style="font-weight: 700;" class="font-weight-bold"><?php echo e($room->nama_kamar); ?></p>
+                                <p class="font-weight-bold"><?php echo e($room->desc); ?>..</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <small class="text-muted">Rp.<?php echo e($room->harga); ?></small>
+                                    </div>
+                                    <a href="/detail/<?php echo e($room->id); ?>" class="btn btn-sm btn-outline-secondary">Lihat fasilitas</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
-          </div>
-          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
-      </div>
     </div>
+
 
   </main>
 <?php $__env->stopSection(); ?>
-
 <?php echo $__env->make('templates.default', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Admin\Documents\PROJECT LARAVEL\HomeStay V2\resources\views/welcome.blade.php ENDPATH**/ ?>
