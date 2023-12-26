@@ -23,7 +23,7 @@
       <div class="page-wrapper">
         <!-- Page header -->
         <!-- Page body -->
-        <div class="container-xl">            
+        <div class="container-xl">
           @yield('content')
         </div>
         <footer class="footer footer-transparent d-print-none">

@@ -111,6 +111,7 @@ public function logout(Request $request)
 
         return redirect('/');
     }
+<<<<<<< HEAD
 
 
     public function checkout(Request $request, $id)
@@ -124,3 +125,6 @@ public function logout(Request $request)
             return redirect('/user/home')->with('success', 'Room successfully dipesan.');
     }
 }
+=======
+}
+>>>>>>> 3dc87e08bb2ada1a8c79745a9b653df24e3f7ae7

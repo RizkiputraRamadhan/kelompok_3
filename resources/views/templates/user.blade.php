@@ -15,7 +15,7 @@
     <script src="./dist/js/demo-theme.min.js?1684106062"></script>
     <div class="page">
       <!-- Navbar -->
-      
+
       <div class="page-wrapper">
         <!-- Page header -->
         @include('templates.partials.DashboardUser')
@@ -28,7 +28,7 @@
         </footer>
       </div>
     </div>
-    
+
     <!-- Libs JS -->
       @include('templates.partials.script')
   </body>

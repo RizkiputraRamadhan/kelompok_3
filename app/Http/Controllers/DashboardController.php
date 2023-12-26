@@ -103,7 +103,6 @@ class DashboardController extends Controller
         ]);
         return redirect('/admin/room')->with('success', 'Data Room Successfully !!');
     }
-
     public function adminEdit($id)
     {
         $room = Room::find($id);
@@ -188,7 +187,10 @@ class DashboardController extends Controller
 
         return redirect('/admin/home')->with('error', 'Room tidak ditemukan.');
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3dc87e08bb2ada1a8c79745a9b653df24e3f7ae7
     public function destroy($id)
     {
         $room = Room::find($id);

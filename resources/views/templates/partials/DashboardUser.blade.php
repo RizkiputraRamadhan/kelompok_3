@@ -10,7 +10,7 @@
             </a>
         </h1>
         <div class="navbar-nav order-md-last flex-row">
-            
+
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
                     aria-label="Open user menu">
